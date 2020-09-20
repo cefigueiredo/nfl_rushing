@@ -54,4 +54,39 @@ We will evaluate you on your ability to solve the problem defined in the require
 If you have any questions regarding requirements, do not hesitate to email your contact at theScore for clarification.
 
 ### Installation and running this solution
-... TODO
+
+#### Requirements
+
+The application is built with Phoenix framework for *Elixir 1.10.4*, however all the requirements are encapsulated on a docker container that runs the app.
+So, the minimum requirements to run are:
+
+* `docker`: The application was prepared to run on a docker container, that will encapsulate the requirements to run an controlled environment.
+* `make`: There is a makefile prepared with the shortcuts for the docker commands to build the images and run the container.
+
+#### To prepare and start the application
+```
+make build-image  # to prepare the container image
+make start        # to start the app and attach to STDOUT
+```
+
+Other possible commands are available
+
+* *make build-image*: Build the docker image and compile the the app
+
+* *make rebuild-image*: Rebuild the docker image
+
+* *make start*: Start the app on a new docker container and attach the STDOUT
+
+* *make start-daemon*: Start the app on a new daemon docker container. The container will restart on failure and when docker restarts, unless it was explicitly stopped.
+
+* *make stop*: Stop the app container.
+* *make help*: Shows this help message
+
+**Obs.1**: The app is expected to listen to port 4000/tcp
+**Obs.2**: The app will run on `prod` environment unless a $$MIX_ENV is provided.
+
+Example: 
+```
+MIX_ENV=dev make build
+This would build the image to run using `dev` environment.
+```
