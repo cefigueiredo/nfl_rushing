@@ -5,24 +5,24 @@ IMG_NAME=$(NAME):latest
 
 define HELP
 Usage:
-	make build-image:
+	make build-image
 		Build the docker image and compile the the app
 
-	make rebuild-image:
+	make rebuild-image
 		Rebuild the docker image
 
-	make start:
+	make start
 		Start the app on a new docker container and attach the STDOUT
 
-	make start-daemon:
+	make start-daemon
 		Start the app on a new daemon docker container.
 		The container will restart on failure and when docker restarts, 
 		unless it was explicitly stopped.
 
-	make stop:
+	make stop
 		Stop the app container.
 
-	make help:
+	make help
 		Shows this help message
 
 Obs.1: The app is expected to listen to port 4000/tcp
