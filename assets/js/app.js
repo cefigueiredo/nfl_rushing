@@ -13,3 +13,9 @@ import "../css/app.scss"
 //     import socket from "./socket"
 //
 import "phoenix_html"
+
+import ReactDOM from 'react-dom';
+import React from 'react';
+import Application from './Application';
+
+ReactDOM.render(<Application />, document.getElementById("NflRushingRoot"));
