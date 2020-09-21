@@ -1,4 +1,4 @@
-defmodule NflRushing.PlayersStorage do
+defmodule NflRushing.PlayersRepo do
   use Agent
 
   alias NflRushing.Player
@@ -31,7 +31,7 @@ defmodule NflRushing.PlayersStorage do
 
         iex> [%NflRushing.Player{}| tail] = NflRushing.PlayersStorage.get(:all)
 
-        iex> PlayersStorage.get(fn y -> y.name == "Shane Wynn" end)
+        iex> PlayersRepo.get(fn y -> y.name == "Shane Wynn" end)
         [
           %NflRushing.Player{
             name: "Shane Wynn",

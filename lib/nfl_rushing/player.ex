@@ -1,4 +1,6 @@
 defmodule NflRushing.Player do
+  alias NflRushing.Player
+
   @derive Jason.Encoder
   defstruct [
     :name,
@@ -18,4 +20,17 @@ defmodule NflRushing.Player do
     :rushing_fumbles
   ]
 
+  def match?(%Player{} = player, str) do
+    player_name = String.downcase(player.name)
+    search_regex = str
+      |> String.replace(~r/[\p{P}\p{S}]/, " ") # replace eventual punctuation
+      |> String.downcase()
+      |> String.trim()
+      |> Regex.compile()
+
+    case search_regex do
+      {:ok, regex} -> String.match?(player_name, regex)
+      {:error, _} -> false
+    end
+  end
 end

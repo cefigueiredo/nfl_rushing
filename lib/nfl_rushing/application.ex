@@ -15,7 +15,7 @@ defmodule NflRushing.Application do
       NflRushingWeb.Endpoint,
       # Start a worker by calling: NflRushing.Worker.start_link(arg)
       # {NflRushing.Worker, arg}
-      {NflRushing.PlayersStorage, []}
+      {NflRushing.PlayersRepo, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
