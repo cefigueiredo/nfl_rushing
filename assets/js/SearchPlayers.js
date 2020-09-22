@@ -10,7 +10,7 @@ function SearchPlayers({searchedName, searchCallback}) {
   }, 300)
 
   return (
-      <div>
+      <div className="searcher">
         <label>
           Search Player:
           <input

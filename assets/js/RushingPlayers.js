@@ -3,6 +3,7 @@ import axios from 'axios';
 import { stringifyUrl } from 'query-string';
 import PlayersTable from './PlayersTable';
 import SearchPlayers from './SearchPlayers';
+import '../css/RushingPlayer.css'
 
 function prepareUrl(path, params) {
   return stringifyUrl({
@@ -86,15 +87,17 @@ function RushingPlayers() {
 
   return (
     <>
-      <SearchPlayers searchedName={searchedName} searchCallback={searchCallback} />
-      <a className='button export' href={exportUrl} target="_blank">Download</a>
+      <div className="controls">
+        <SearchPlayers searchedName={searchedName} searchCallback={searchCallback} />
+        <a className='button export' href={exportUrl} target="_blank">Download</a>
+      </div>
       <PlayersTable players={players}
                     sortCallback={sortCallback}
                     sortedColumn={sortedColumn}
                     isSortAscending={isSortAscending} />
-      <div>
-        <button onClick={() => paginationCallback("previous") } >Previous</button>
-        <button onClick={() => paginationCallback("next")} >Next</button>
+      <div className='pagination' >
+        <button disabled={!pagination.has_previous} onClick={() => paginationCallback("previous") } >Previous</button>
+        <button disabled={!pagination.has_next} onClick={() => paginationCallback("next")} >Next</button>
       </div>
     </>
   );

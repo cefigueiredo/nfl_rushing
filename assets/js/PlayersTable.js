@@ -18,6 +18,15 @@ const tableMap = [
   { label: "FUM"   , key: "rushing_fumbles" }
 ]
 
+function getSortableClass(column, sorted, isAscending) {
+  if (column == sorted) {
+    return isAscending ? 'sortable sorted-asc' : 'sortable sorted-desc'
+  }
+
+  return 'sortable'
+}
+
+
 function SortableColumnHeader({column, sortedColumn, isSortAscending, sortCallback}) {
   function toggleSort(event) {
     let newSortAscending = isSortAscending
@@ -34,11 +43,12 @@ function SortableColumnHeader({column, sortedColumn, isSortAscending, sortCallba
 
   return(
     <>
-      <th key={column.key}>
-        <button
-            onClick={toggleSort}
-          > Toggle </button>
+      <th className={getSortableClass(column.key, sortedColumn, isSortAscending)} key={column.key} onClick={toggleSort}>
         {column.label}
+        <div className="sort-icons">
+          <i className="sort-desc"></i>
+          <i className="sort-asc"></i>
+        </div>
       </th>
     </>
   )

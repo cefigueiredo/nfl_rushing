@@ -1,0 +1,57 @@
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination {
+  text-align: right;
+}
+
+.pagination button {
+  margin-left: 0.3rem;
+}
+
+.sortable {
+  position: relative
+}
+
+.sort-icons {
+  position: relative
+}
+
+.sort-asc
+{
+    right: -5px;
+    bottom: 15px;
+    position: absolute;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    margin: 4px 4px 0 3px;
+    background: transparent;
+    border-bottom: solid 7px #bfbfbf;
+    border-top-width: 0;
+}
+
+.sorted-asc .sort-asc {
+  border-bottom-color: #060606;
+}
+
+.sorted-desc .sort-desc {
+  border-top-color: #060606;
+}
+.sort-desc
+{
+    right: -5px;
+    bottom: 5px;
+    position: absolute;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    margin: 4px 4px 0 3px;
+    background: transparent;
+    border-top: solid 7px #bfbfbf;
+    border-bottom-width: 0;
+}
