@@ -89,7 +89,7 @@ function RushingPlayers() {
     <>
       <div className="controls">
         <SearchPlayers searchedName={searchedName} searchCallback={searchCallback} />
-        <a className='button export' href={exportUrl} target="_blank">Download</a>
+        <a className='button export' href={exportUrl} target="_blank">Export CSV</a>
       </div>
       <PlayersTable players={players}
                     sortCallback={sortCallback}
