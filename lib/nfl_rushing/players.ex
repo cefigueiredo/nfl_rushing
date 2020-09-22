@@ -33,18 +33,51 @@ defmodule NflRushing.Players do
     PlayersRepo.get(:all)
   end
 
-  defp sort(players, params), do: players
+  defp sort(players, %{"sort_by" => sort}) when bit_size(sort) == 0, do: players
+
+  defp sort(players, %{"sort_by" => key, "is_asc" => is_asc} = params) do
+    atom_key = String.to_atom(key)
+
+    sort_criteria_function = case {atom_key, is_asc} do
+      {atom_key, true} ->
+        fn (player_a, player_b) ->
+          parsed_value(player_a, atom_key) <= parsed_value(player_b, atom_key)
+        end
+
+      {atom_key, _} ->
+        fn (player_a, player_b) ->
+          parsed_value(player_a, atom_key) >= parsed_value(player_b, atom_key)
+        end
+    end
+
+    Enum.sort(players, sort_criteria_function)
+  end
+
+  defp sort(players, params) do
+    players
+  end
+
+  defp paginate([], _), do: []
 
   defp paginate(players, %{"page" => page, "per_page" => per_page}) do
-    with players_slices <- Enum.chunk_every(players, per_page),
-         {:ok, slice} <- Enum.fetch(players_slices, page) do
-      slice
-    else
-      {:error, _} -> []
-    end
+    start = if (page > 0), do: page * per_page, else: 0
+
+    Enum.slice(players, start, per_page)
   end
 
   defp paginate(players, %{}) do
-    Enum.slice(players, 0, 20)
+    Enum.slice(players, 0, 10)
+  end
+
+  defp parsed_value(player, atom_key) do
+    player |> Map.get(atom_key) |> parse_int
+  end
+
+  defp parse_int(value) when is_number(value), do: value
+  defp parse_int(value) do
+    case value |> String.replace(",", "") |> Integer.parse() do
+      {int, _} -> int
+      :error -> value
+    end
   end
 end

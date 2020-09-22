@@ -14,11 +14,12 @@ defmodule NflRushingWeb.PlayerController do
   end
 
   defp normalized_params(%{} = params) do
-    Map.merge(%{ "query" => nil, "page" => "0", "per_page" => "20"}, params)
-    |> Map.take(["query", "page", "per_page"])
+    Map.merge(%{ "query" => nil, "is_asc" => nil, "sort_by"=> nil, "page" => "0", "per_page" => "20"}, params)
+    |> Map.take(["query", "page", "per_page", "sort_by", "is_asc"])
     |> Map.new(fn {key, value} ->
         cond do
           key in ["page", "per_page"] -> {key, String.to_integer(value)}
+          key in ["is_asc"]           -> {key, String.to_atom(value) }
 
           true -> {key, value}
         end

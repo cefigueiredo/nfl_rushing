@@ -5,8 +5,7 @@ function Application() {
   return (
     <div className="Application">
       <div className="topbar">
-        <h2>The Score</h2>
-        <span>NFL - Rushing Players</span>
+        <h2>The Score - NFL Rushing Players</h2>
       </div>
       <main>
         <RushingPlayers />
