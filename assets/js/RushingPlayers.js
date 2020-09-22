@@ -28,6 +28,7 @@ function RushingPlayers() {
   const [players, setPlayers] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(0)
+  const [exportUrl, setExportUrl] = useState('')
 
   const [pagination, setPagination] = useReducer(trackPaginationChanges, {
     current: currentPage,
@@ -65,13 +66,15 @@ function RushingPlayers() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchPlayers({
+    let fetchParams = {
             name: searchedName,
             page: currentPage,
             sort_by: sortedColumn,
             is_ascending: isSortAscending
         }
-      )
+
+    setExportUrl(prepareUrl('/api/players/export', fetchParams))
+    fetchPlayers(fetchParams)
       .then(({data}) => {
         let params = data.params
 
@@ -84,6 +87,7 @@ function RushingPlayers() {
   return (
     <>
       <SearchPlayers searchedName={searchedName} searchCallback={searchCallback} />
+      <a className='button export' href={exportUrl} target="_blank">Download</a>
       <PlayersTable players={players}
                     sortCallback={sortCallback}
                     sortedColumn={sortedColumn}

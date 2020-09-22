@@ -80,4 +80,32 @@ defmodule NflRushing.Players do
       :error -> value
     end
   end
+
+  def export(players) when is_list(players), do: Enum.map(players, &export_player/1)
+
+  defp export_player(%Player{} = player) do
+    Enum.reduce(csv_map(), %{}, fn({key, column}, acc) ->
+      Map.put(acc, column, Map.get(player, key, ""))
+    end)
+  end
+
+  def csv_map do
+    [
+      name: "Player",
+      team: "Team",
+      position: "Pos",
+      rushing_longest_rush: "Lng",
+      rushing_total_touchdowns: "TD",
+      rushing_total_yards: "Yds",
+      rushing_attempts_per_game: "Att/G",
+      rushing_attempts: "Att",
+      rushing_average_yards: "Avg",
+      rushing_yards_per_game: "Yds/G",
+      rushing_first_downs: "1st",
+      rushing_first_down_percent: "1st%",
+      rushing_plus_20_yards: "20+",
+      rushing_plus_40_yards: "40+",
+      rushing_fumbles: "FUM"
+    ]
+  end
 end

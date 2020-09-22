@@ -13,8 +13,20 @@ defmodule NflRushingWeb.PlayerController do
     render(conn, "index.json", players: players, params: params, total: count)
   end
 
+  def export(conn, params \\ %{}) do
+    csv = params
+          |> export_params
+          |> Players.list_players()
+          |> generate_csv()
+
+    conn
+    |> put_resp_content_type("text/csv")
+    |> put_resp_header("content-disposition", "attachment; filename=\"players.csv\"")
+    |> send_resp(200, csv)
+  end
+
   defp normalized_params(%{} = params) do
-    Map.merge(%{ "query" => nil, "is_asc" => nil, "sort_by"=> nil, "page" => "0", "per_page" => "20"}, params)
+    params
     |> Map.take(["query", "page", "per_page", "sort_by", "is_asc"])
     |> Map.new(fn {key, value} ->
         cond do
@@ -24,5 +36,19 @@ defmodule NflRushingWeb.PlayerController do
           true -> {key, value}
         end
       end)
+  end
+
+  defp export_params(%{} = params) do
+    params
+    |> normalized_params
+    |> Map.drop(["page", "per_page"])
+  end
+
+  defp generate_csv(players) do
+    players
+    |> Players.export()
+    |> CSV.encode(headers: true)
+    |> Enum.to_list()
+    |> to_string()
   end
 end
