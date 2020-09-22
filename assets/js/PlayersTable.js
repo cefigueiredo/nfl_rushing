@@ -7,15 +7,15 @@ const tableMap = [
   { label: "Lng"   , key: "rushing_longest_rush", sortable: true },
   { label: "TD"    , key: "rushing_total_touchdowns", sortable: true },
   { label: "Yds"   , key: "rushing_total_yards", sortable: true },
-  { label: "Att/G" , key: "rushing_attempts_per_game" },
-  { label: "Att"   , key: "rushing_attempts" },
-  { label: "Avg"   , key: "rushing_average_yards" },
-  { label: "Yds/G" , key: "rushing_yards_per_game" },
-  { label: "1st"   , key: "rushing_first_downs" },
-  { label: "1st%"  , key: "rushing_first_down_percent" },
-  { label: "20+"   , key: "rushing_plus_20_yards" },
-  { label: "40+"   , key: "rushing_plus_40_yards" },
-  { label: "FUM"   , key: "rushing_fumbles" }
+  { label: "Att/G" , key: "rushing_attempts_per_game", sortable: true },
+  { label: "Att"   , key: "rushing_attempts", sortable: true },
+  { label: "Avg"   , key: "rushing_average_yards", sortable: true },
+  { label: "Yds/G" , key: "rushing_yards_per_game", sortable: true },
+  { label: "1st"   , key: "rushing_first_downs", sortable: true },
+  { label: "1st%"  , key: "rushing_first_down_percent", sortable: true },
+  { label: "20+"   , key: "rushing_plus_20_yards", sortable: true },
+  { label: "40+"   , key: "rushing_plus_40_yards", sortable: true },
+  { label: "FUM"   , key: "rushing_fumbles", sortable: true }
 ]
 
 function getSortableClass(column, sorted, isAscending) {
