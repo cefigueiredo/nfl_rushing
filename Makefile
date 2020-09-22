@@ -32,9 +32,9 @@ Obs.2: The app will run on `prod` environment unless a $$MIX_ENV is provided.
 
 endef
 
-.PHONY: help
-help:
-	$(info $(HELP))
+.PHONY: start
+start: build-image
+	docker run -p 4000:4000 --rm --name $(NAME) $(IMG_NAME)
 
 .PHONY: build-image
 build-image:
@@ -43,10 +43,6 @@ build-image:
 .PHONY: rebuild-image
 rebuild-image:
 	MIX_ENV=$(MIX_ENV) docker build -t $(IMG_NAME) --no-cache .
-
-.PHONY: start
-start:
-	docker run -p 4000:4000 --rm --name $(NAME) $(IMG_NAME)
 
 .PHONY: start-daemon
 start-daemon:
@@ -60,3 +56,7 @@ kill:
 .PHONY: logs
 logs:
 	docker logs $(NAME)
+
+.PHONY: help
+help:
+	$(info $(HELP))

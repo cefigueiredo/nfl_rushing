@@ -65,9 +65,10 @@ So, the minimum requirements to run are:
 
 #### To prepare and start the application
 ```
-make build-image  # to prepare the container image
-make start        # to start the app and attach to STDOUT
+make    # This is run the receipts to build a docker image and start a container attached to STDOUT
 ```
+
+After start the container, the app will be accessible on `http://localhost:4000`
 
 Other possible commands are available
 
@@ -75,7 +76,7 @@ Other possible commands are available
 
 * `make rebuild-image`: Rebuild the docker image
 
-* `make start`: Start the app on a new docker container and attach the STDOUT
+* `make start`: The Default command run by `make`. It start the app on a new docker container and attach the STDOUT
 
 * `make start-daemon`: Start the app on a new daemon docker container. The container will restart on failure and when docker restarts, unless it was explicitly stopped.
 
@@ -90,3 +91,27 @@ Example:
 MIX_ENV=dev make build-image
 This would build the image to run using `dev` environment.
 ```
+
+#### Decisions and Commentaries
+
+##### Elixir as Backend
+
+Besides I have used some cool stuff from Elixir on this project. I confess that I used Elixir, and particularly Phoenix, mostly because I knew that it was part of the tools used by the company.
+
+However, while using this tool. I opted to make use of the named Agent Process to store the data source in memory, as I trust that the volume of data (even if it was 10.000) would not be that much of a burden for elixir.
+
+The evolution for that strategy would be either using ETS if the requirements would still consider static files, or a Postgres Database.
+
+##### React as Frontend
+
+The requirements of the project initially does not seem to demand too much of an UI, to really justify an entire frontend framework. 
+
+So, I considered the possibility of using a regular server rendered webpage, with some vanilla javascript for the little DOM fancyness added to the app.
+
+Phoenix LiveView, besides look cool, I was 100% sure that it would be too much for this challenge. I don't really see any benefit of its capabilities on this project, to justify the burder of the maintenance of websockets, for an app that does not have alerts or real time interactions.
+
+Actually the requirements stressed the importance of make an app though to evolve and the idea of scarse resources (when mentioned the 10.000 players).
+
+That is what really made me consider start it already using React components. Because of the easy of mind that Components bring, allowing us to change without too much stress for others moving parts. Not to say that it is probably the most adopted framework today.
+
+
